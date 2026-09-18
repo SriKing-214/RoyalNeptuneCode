@@ -111,7 +111,7 @@ void usercontrol(void)
     }
     else
     {
-      armMotor.stop();
+      armMotor.stop(hold);
     }
     // Control the claw motor based on button presses
     if (Controller1.ButtonR1.pressing())
