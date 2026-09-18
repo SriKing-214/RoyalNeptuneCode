@@ -22,7 +22,7 @@ motor rightMotor = motor(PORT10, true);
 motor armMotor = motor(PORT8, false);
 motor clawMotor = motor(PORT3, false);
 
-drivetrain DriveTrain = drivetrain(
+drivetrain Drivetrain = drivetrain(
     leftMotor, rightMotor,
     259.34,
     320,
@@ -41,7 +41,10 @@ drivetrain DriveTrain = drivetrain(
 
 void pre_auton(void)
 {
-
+  Drivetrain.setDriveVelocity(60, percent);
+  Drivetrain.setTurnVelocity(40, percent);
+  Drivetrain.setStopping(brake);
+  Drivetrain.setTimeout(3, seconds);
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
 }
@@ -75,17 +78,54 @@ void autonomous(void)
 
 void usercontrol(void)
 {
+  // Set the stopping mode for the arm and claw motors to hold
+  armMotor.setStopping(hold);
+  clawMotor.setStopping(hold);
   // User control code here, inside the loop
   while (1)
   {
-    // This is the main execution loop for the user control program.
-    // Each time through the loop your program should update motor + servo
-    // values based on feedback from the joysticks.
+    int fwd = Controller1.Axis3.position(percent);
+    int turn = Controller1.Axis1.position(percent);
 
-    // ........................................................................
-    // Insert user code here. This is where you use the joystick values to
-    // update your motors, etc.
-    // ........................................................................
+    if ((fwd < 5) && (fwd > -5))
+    {
+      fwd = 0;
+    } // deadband: ignores stick drift
+
+    if ((turn < 5) && (turn > -5))
+    {
+      turn = 0;
+    } // deadband: ignores stick drift
+
+    leftMotor.spin(forward, fwd + turn, percent);
+    rightMotor.spin(forward, fwd - turn, percent);
+
+    // Arm control
+    if (Controller1.ButtonL1.pressing())
+    {
+      armMotor.spin(forward, 50, percent);
+    }
+    else if (Controller1.ButtonL2.pressing())
+    {
+      armMotor.spin(reverse, 50, percent);
+    }
+    else
+    {
+      armMotor.stop();
+    }
+    // Control the claw motor based on button presses
+    if (Controller1.ButtonR1.pressing())
+    {
+      clawMotor.spin(forward, 50, percent);
+    }
+    else if (Controller1.ButtonR2.pressing())
+    {
+      clawMotor.spin(reverse, 50, percent);
+    }
+    else
+    {
+      clawMotor.stop();
+    }
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
