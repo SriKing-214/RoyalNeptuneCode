@@ -124,7 +124,7 @@ void usercontrol(void)
     }
     else
     {
-      clawMotor.stop();
+      clawMotor.stop(hold);
     }
 
     wait(20, msec); // Sleep the task for a short amount of time to
