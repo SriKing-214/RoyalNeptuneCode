@@ -1,7 +1,7 @@
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
-/*    Author:       Sriha                                                     */
+/*    Author:       5069V -- Royal Neptune                                                  */
 /*    Created:      9/17/2026, 1:01:02 PM                                     */
 /*    Description:  V5 project                                                */
 /*                                                                            */
