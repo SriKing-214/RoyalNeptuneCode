@@ -20,7 +20,7 @@ controller Controller1 = controller(primary);
 motor leftMotor = motor(PORT1, false);
 motor rightMotor = motor(PORT10, true);
 motor armMotor = motor(PORT8, false);
-motor clawMotor = motor(PORT3, false);
+motor clawMotor = motor(PORT4, false);
 
 drivetrain Drivetrain = drivetrain(
     leftMotor, rightMotor,
@@ -127,7 +127,7 @@ void usercontrol(void)
       clawMotor.stop(hold);
     }
 
-    wait(20, msec); // Sleep the task for a short amount of time to
+    wait(10, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
 }
