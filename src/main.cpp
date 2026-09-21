@@ -97,8 +97,8 @@ void usercontrol(void)
       turn = 0;
     } // deadband: ignores stick drift
 
-    leftMotor.spin(forward, fwd + turn, percent);
-    rightMotor.spin(forward, fwd - turn, percent);
+    leftMotor.spin(forward, (fwd + turn) * 0.12, volt);
+    rightMotor.spin(forward, (fwd - turn) * 0.12, volt);
 
     // Arm control
     if (Controller1.ButtonL1.pressing())
