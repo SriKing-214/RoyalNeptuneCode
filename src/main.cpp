@@ -147,6 +147,6 @@ int main()
   // Prevent main from exiting with an infinite loop.
   while (true)
   {
-    wait(100, msec);
+    wait(10, msec);
   }
 }
