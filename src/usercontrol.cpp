@@ -12,6 +12,7 @@ void usercontrol(void)
         int turn = Controller1.Axis1.position(percent);
 
         if ((fwd < 5) && (fwd > -5))
+
         {
             fwd = 0;
         }
@@ -24,13 +25,13 @@ void usercontrol(void)
         rightMotor.spin(forward, (fwd - turn) * 0.127, volt);
 
         // Arm
-        if (Controller1.ButtonL1.pressing())
+        if (Controller1.ButtonL2.pressing())
         {
-            armMotor.spin(forward, 50, percent);
+            armMotor.spin(forward, 100, percent);
         }
-        else if (Controller1.ButtonL2.pressing())
+        else if (Controller1.ButtonL1.pressing())
         {
-            armMotor.spin(reverse, 50, percent);
+            armMotor.spin(reverse, 100, percent);
         }
         else
         {
@@ -40,11 +41,11 @@ void usercontrol(void)
         // Claw
         if (Controller1.ButtonR1.pressing())
         {
-            clawMotor.spin(forward, 50, percent);
+            clawMotor.spin(forward, 100, percent);
         }
         else if (Controller1.ButtonR2.pressing())
         {
-            clawMotor.spin(reverse, 50, percent);
+            clawMotor.spin(reverse, 100, percent);
         }
         else
         {

@@ -5,7 +5,7 @@ controller Controller1 = controller(primary);
 motor leftMotor = motor(PORT7, false);
 motor rightMotor = motor(PORT5, true);
 motor armMotor = motor(PORT8, false);
-motor clawMotor = motor(PORT4, false);
+motor clawMotor = motor(PORT6, false);
 
 drivetrain Drivetrain = drivetrain(
     leftMotor, rightMotor,
