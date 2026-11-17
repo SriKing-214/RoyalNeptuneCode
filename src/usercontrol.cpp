@@ -1,18 +1,25 @@
 #include "robot-config.h"
 #include "usercontrol.h"
+#include "auton_blue.h"
+#include "auton_red.h"
+#include "skills_blue.h"
+#include "skills_red.h"
+
+// Driver speed cap: 1.0 = full speed. Raise it as you get comfortable.
+const double DRIVE_SCALE = 1;
 
 void usercontrol(void)
 {
-    armMotor.setStopping(hold);
-    clawMotor.setStopping(hold);
-
-    while (1)
+    while (true)
     {
+        armMotor.setStopping(hold);
+        clawMotor.setStopping(hold);
+
+        // ---- Driving (arcade, in volts) ----
         int fwd = Controller1.Axis3.position(percent);
         int turn = Controller1.Axis1.position(percent);
 
         if ((fwd < 5) && (fwd > -5))
-
         {
             fwd = 0;
         }
@@ -21,31 +28,31 @@ void usercontrol(void)
             turn = 0;
         }
 
-        leftMotor.spin(forward, (fwd + turn) * 0.127, volt);
-        rightMotor.spin(forward, (fwd - turn) * 0.127, volt);
+        leftMotor.spin(forward, (fwd + turn) * 0.12 * DRIVE_SCALE, volt);
+        rightMotor.spin(forward, (fwd - turn) * 0.12 * DRIVE_SCALE, volt);
 
-        // Arm
-        if (Controller1.ButtonL2.pressing())
+        // ---- Arm: L1 up, L2 down ----
+        if (Controller1.ButtonL1.pressing())
         {
-            armMotor.spin(forward, 100, percent);
+            armMotor.spin(forward, 75, percent);
         }
-        else if (Controller1.ButtonL1.pressing())
+        else if (Controller1.ButtonL2.pressing())
         {
-            armMotor.spin(reverse, 100, percent);
+            armMotor.spin(reverse, 75, percent);
         }
         else
         {
             armMotor.stop(hold);
         }
 
-        // Claw
+        // ---- Claw: R1 close, R2 open ----
         if (Controller1.ButtonR1.pressing())
         {
-            clawMotor.spin(forward, 100, percent);
+            clawMotor.spin(forward, 50, percent);
         }
         else if (Controller1.ButtonR2.pressing())
         {
-            clawMotor.spin(reverse, 100, percent);
+            clawMotor.spin(reverse, 50, percent);
         }
         else
         {
